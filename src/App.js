@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, createContext } from "react";
+import Title from "./components/Title";
+import InputForm from "./components/InputForm";
+import ToDoList from "./components/ToDoList";
+import "./App.css";
+
+const eliaInfo = {
+  name: "Elia",
+  age: "8",
+  school: "Whitley Lodge First School",
+};
+
+export const eliaContext = createContext(eliaInfo);
+// export has to be at the toplevel of module and can't be nested inside the funtion or block
 
 function App() {
+  const [taskList, setTaskList] = useState([]);
+  console.log("🚀 ~ App ~ taskList:", taskList);
+
+  const marikoInfo = useContext(marikoContext);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+
+      <eliaContext.Provider value={eliaInfo}>
+        <InputForm taskList={taskList} setTaskList={setTaskList} />
+        <ToDoList taskList={taskList} setTaskList={setTaskList} />
+      </eliaContext.Provider>
     </div>
   );
 }
-
 export default App;
